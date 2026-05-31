@@ -1,36 +1,51 @@
-const container = document.getElementById("restaurants");
+const list = document.getElementById("foodList");
 const modal = document.getElementById("modal");
-const foodDetails = document.getElementById("foodDetails");
+const modalBody = document.getElementById("modalBody");
 const closeBtn = document.getElementById("close");
+const search = document.getElementById("search");
 
-// DISPLAY RESTAURANTS
-restaurants.forEach((r, index) => {
-  const div = document.createElement("div");
-  div.classList.add("card");
+// render foods
+function render(data) {
+  list.innerHTML = "";
+  data.forEach(food => {
+    const div = document.createElement("div");
+    div.classList.add("card");
 
-  div.innerHTML = `
-    <h3>${r.name}</h3>
-    <p>${r.food.length} items</p>
-  `;
+    div.innerHTML = `
+      <img src="${food.img}">
+      <div class="info">
+        <h4>${food.name}</h4>
+        <p class="price">₱${food.price}</p>
+      </div>
+    `;
 
-  div.onclick = () => showFoods(index);
+    div.onclick = () => openModal(food);
 
-  container.appendChild(div);
-});
-
-function showFoods(index) {
-  modal.classList.remove("hidden");
-
-  foodDetails.innerHTML = restaurants[index].food.map(f => `
-    <div class="card">
-      <img src="${f.img}" />
-      <h3>${f.name}</h3>
-      <p>₱${f.price}</p>
-    </div>
-  `).join("");
+    list.appendChild(div);
+  });
 }
 
-// CLOSE MODAL
-closeBtn.onclick = () => {
-  modal.classList.add("hidden");
-};
+function openModal(food) {
+  modal.classList.remove("hidden");
+  modalBody.innerHTML = `
+    <h2>${food.name}</h2>
+    <img src="${food.img}" style="width:100%; border-radius:10px;">
+    <p>${food.desc}</p>
+    <h3>₱${food.price}</h3>
+    <button>Add to Cart</button>
+  `;
+}
+
+closeBtn.onclick = () => modal.classList.add("hidden");
+
+// search function
+search.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase();
+  const filtered = foods.filter(f =>
+    f.name.toLowerCase().includes(value)
+  );
+  render(filtered);
+});
+
+// init
+render(foods);
