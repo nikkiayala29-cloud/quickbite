@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickBite</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
 
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>🍔 QuickBite</h1>
+    <input type="text" id="search" placeholder="Search food or restaurant..."/>
+  </header>
+
+  <!-- CATEGORY -->
+  <section class="categories">
+    <button>Burger</button>
+    <button>Pizza</button>
+    <button>Rice Meals</button>
+    <button>Dessert</button>
+  </section>
+
+  <!-- RESTAURANTS -->
+  <section id="restaurants" class="grid"></section>
+
+  <!-- FOOD MODAL -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close">&times;</span>
+      <div id="foodDetails"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
